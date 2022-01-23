@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import com.nttdata.designPatterns.lombok.LombokPerson;
 import com.nttdata.designPatterns.lombok.LombokPersonC;
 import com.nttdata.designPatterns.model.Person;
+import com.nttdata.designPatterns.model.Person.PersonBuilder;
 import com.nttdata.designPatterns.singleton.SingletonPerson;
 import com.nttdata.designPatterns.singleton.SingletonPersonEnum;
 
@@ -98,12 +99,15 @@ public class Test implements CommandLineRunner{
 		LombokPersonC lombokPersonC1 = new LombokPersonC();
 		LombokPersonC lombokPersonC2 = new LombokPersonC();	
 		
+	
+		
 		Person prototypePersonLombok1 = lombokPersonC1.prototypePerson();
 		Person singletonPersonLombok1 = lombokPersonC1.singletonPerson();
 		
 		Person prototypePersonLombok2 = lombokPersonC2.prototypePerson();
 		Person singletonPersonLombok2 = lombokPersonC2.singletonPerson();
 		
+
 		prototypePersonLombok1.setName("prototypePersonLombok1");		
 		singletonPersonLombok1.setName("singletonPersonLombok1");
 		
@@ -111,9 +115,8 @@ public class Test implements CommandLineRunner{
 		singletonPersonLombok2.setName("singletonPersonLombok2");		
 		
 		Person prototypePersonLombok3 = (Person) prototypePersonLombok2.clone();
-		Person singletonPersonLombok3 = (Person) singletonPersonLombok2.clone();
-		
-		lombokPersonC1.toString();
+		Person singletonPersonLombok3 = (Person) prototypePersonLombok3.builder().name("singletonPersonLombok3 con built").age(0).build();
+
 		
 		System.out.println(
 				"NAME :" + lombokPerson1.getName() +
@@ -152,13 +155,13 @@ public class Test implements CommandLineRunner{
 				"\nobject " + singletonPersonLombok2 + 
 				"\nhashcode: " + singletonPersonLombok2.hashCode()
 		);
-		System.out.println("*****************CLONES*************************");
+		System.out.println("*****************CLONE*************************");
 		System.out.println(
 				"NAME :" + prototypePersonLombok3.getName() +
 				"\nobject " + prototypePersonLombok3 + 
 				"\nhashcode: " + prototypePersonLombok3.hashCode()
 		);
-		System.out.println("******************************************");
+		System.out.println("****************Build*******************");
 		System.out.println(
 				"NAME :" + singletonPersonLombok3.getName() +
 				"\nobject " + singletonPersonLombok3 + 
