@@ -4,6 +4,9 @@ import java.util.Objects;
 
 import com.nttdata.designPatterns.prototype.PrototypePersonInterface;
 
+import lombok.Builder;
+
+@Builder
 public class Person implements PrototypePersonInterface, Comparable{
 	
 	private String name;
@@ -24,11 +27,17 @@ public class Person implements PrototypePersonInterface, Comparable{
 	}
 
 
-	public Person(String name, int age) {
+	private Person(String name, int age) {
 		this.name = name;
 		this.age = age;
 	}
+	
+	private Person(PersonBuilder personBuilder) {
+		this.name = personBuilder.name;
+		this.age = personBuilder.age;
+	}
 
+	
 
 	public String getName() {
 		return name;
@@ -100,12 +109,6 @@ public class Person implements PrototypePersonInterface, Comparable{
 		}
 
 
-    }
-
-	private Person(PersonBuilder personBuilder) {
-        super();
-        this.name = personBuilder.name;
-        this.age = personBuilder.age;
     }
 
 

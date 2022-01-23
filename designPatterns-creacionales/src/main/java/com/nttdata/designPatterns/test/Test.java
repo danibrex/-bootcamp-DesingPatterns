@@ -3,6 +3,7 @@ package com.nttdata.designPatterns.test;
 import org.springframework.boot.CommandLineRunner;
 
 import com.nttdata.designPatterns.lombok.LombokPerson;
+import com.nttdata.designPatterns.lombok.LombokPersonC;
 import com.nttdata.designPatterns.model.Person;
 import com.nttdata.designPatterns.singleton.SingletonPerson;
 import com.nttdata.designPatterns.singleton.SingletonPersonEnum;
@@ -27,6 +28,8 @@ public class Test implements CommandLineRunner{
 		singletonPerson2.setName("SingletonPerson2");
 		singletonPerson3.setName("SingletonPerson3 ENUM");
 		singletonPerson4.setName("SingletonPerson4 ENUM");	
+		
+		
 		
 		System.out.println("************ Singleton************");
 		System.out.println(person1.getName() + " " + person1);
@@ -65,13 +68,25 @@ public class Test implements CommandLineRunner{
 		
 		if (prototypePerson1.equals(prototypePerson5)) {
 			System.out.println("El objeto 1 y su clon 5 son iguales con equals");
+		}else {
+			System.out.println("El objeto 1 y su clon 5 No son iguales con equals");
+		}
+		
+		prototypePerson5.setName("prototipePerson5 editado");
+		
+		if (prototypePerson1.equals(prototypePerson5)) {
+			System.out.println("El objeto 1 y su clon 5 son iguales con equals");
+		}else {
+			System.out.println("El objeto 1 y su clon 5 No son iguales con equals \ntras cambiar el valor del nombre del 5");
 		}
 		
 		/***********************BUILDER****************************/	
 		
 		System.out.println("************ Builder************");
-		Person builderPerson = Person.PersonBuilder.builder().name("builderPerson").age(78).build();
-		System.out.println(builderPerson.getName() + " " + builderPerson.getAge());
+		Person builderPerson1 = Person.PersonBuilder.builder().name("builderPerson1").age(78).build();
+		Person builderPerson2 = Person.PersonBuilder.builder().name("builderPerson2").age(7).build();		
+		System.out.println(builderPerson1.getName() + " " + builderPerson1.getAge());
+		System.out.println(builderPerson2.getName() + " " + builderPerson2.getAge());
 		
 		/***********************LOMBOK****************************/	
 		
@@ -79,8 +94,77 @@ public class Test implements CommandLineRunner{
 		
 		LombokPerson lombokPerson1 = new LombokPerson("lombokPerson1", 12);
 		LombokPerson lombokPerson2 = LombokPerson.builder().name("lombokPerson2").age(32).build();
-		System.out.println(lombokPerson1.getName() + " " + lombokPerson1.getAge());
-		System.out.println(lombokPerson2.getName() + " " + lombokPerson2.getAge());
+		
+		LombokPersonC lombokPersonC1 = new LombokPersonC();
+		LombokPersonC lombokPersonC2 = new LombokPersonC();	
+		
+		Person prototypePersonLombok1 = lombokPersonC1.prototypePerson();
+		Person singletonPersonLombok1 = lombokPersonC1.singletonPerson();
+		
+		Person prototypePersonLombok2 = lombokPersonC2.prototypePerson();
+		Person singletonPersonLombok2 = lombokPersonC2.singletonPerson();
+		
+		prototypePersonLombok1.setName("prototypePersonLombok1");		
+		singletonPersonLombok1.setName("singletonPersonLombok1");
+		
+		prototypePersonLombok2.setName("prototypePersonLombok2");		
+		singletonPersonLombok2.setName("singletonPersonLombok2");		
+		
+		Person prototypePersonLombok3 = (Person) prototypePersonLombok2.clone();
+		Person singletonPersonLombok3 = (Person) singletonPersonLombok2.clone();
+		
+		lombokPersonC1.toString();
+		
+		System.out.println(
+				"NAME :" + lombokPerson1.getName() +
+				"\nAGE " + lombokPerson1.getAge() +
+				"\nobject " + lombokPerson1 + 
+				"\nhashcode: " + lombokPerson1.hashCode()
+		);
+		System.out.println("******************************************");
+		System.out.println(
+				"NAME :" + lombokPerson2.getName() +
+				"\nAGE " + lombokPerson2.getAge() +
+				"\nobject " + lombokPerson2 + 
+				"\nhashcode: " + lombokPerson2.hashCode()
+		);
+		System.out.println("******************************************");
+		System.out.println(
+				"NAME :" + prototypePersonLombok1.getName() +
+				"\nobject " + prototypePersonLombok1 + 
+				"\nhashcode: " + prototypePersonLombok1.hashCode()
+		);
+		System.out.println("******************************************");
+		System.out.println(
+				"NAME :" + singletonPersonLombok1.getName() +
+				"\nobject " + singletonPersonLombok1 + 
+				"\nhashcode: " + singletonPersonLombok1.hashCode()
+		);
+		System.out.println("******************************************");
+		System.out.println(
+				"NAME :" + prototypePersonLombok2.getName() +
+				"\nobject " + prototypePersonLombok2 + 
+				"\nhashcode: " + prototypePersonLombok2.hashCode()
+		);
+		System.out.println("******************************************");
+		System.out.println(
+				"NAME :" + singletonPersonLombok2.getName() +
+				"\nobject " + singletonPersonLombok2 + 
+				"\nhashcode: " + singletonPersonLombok2.hashCode()
+		);
+		System.out.println("*****************CLONES*************************");
+		System.out.println(
+				"NAME :" + prototypePersonLombok3.getName() +
+				"\nobject " + prototypePersonLombok3 + 
+				"\nhashcode: " + prototypePersonLombok3.hashCode()
+		);
+		System.out.println("******************************************");
+		System.out.println(
+				"NAME :" + singletonPersonLombok3.getName() +
+				"\nobject " + singletonPersonLombok3 + 
+				"\nhashcode: " + singletonPersonLombok3.hashCode()
+		);
+		
 	}
 
 	@Override
